@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nav Index</title>
+</head>
+<body>
+<h1 th:text="Hello">Hello: </h1>
+<h2 th:if="${user} ne null" th:text="${user.name}"></h2>
+<h2 th:unless="${user} ne null"><a th:href="@{login.html}">Please Login</a></h2>
+<h2 th:if="${user} ne null">
+    <form id="_form" method="post" action="/logout">
+        <a href="javascript:void()" onclick="document.getElementById('_form').submit();">Logout</a>
+    </form>
+</h2>
+
+<h2>current: </h2>
+
+<h2 th:if="${current} ne 0" th:text="${current}"></h2>
+<h2 th:unless="${current} ne 0">Root</h2>
+<h2><a href="/search/0">Back2Index 🔙</a></h2>
+
+<form method="post" action="/folder/create">
+    <div>
+        <input name="name" placeholder="name">
+        <input name="parentId" placeholder="parent folder id" value="0">
+        <button type="submit">Create Folder</button>
+    </div>
+</form>
+
+<form method="post" action="/bookmark/create">
+    <div>
+        <input name="name" placeholder="name">
+        <input name="folderId" placeholder="folder Id" value="0">
+        <input name="url" placeholder="url">
+        <button type="submit">Create Bookmark</button>
+    </div>
+</form>
+
+
+<table>
+    <tbody>
+    <tr th:each="item:${folders.items}">
+        <td th:text="${item.id}"></td>
+        <td th:text="${item.name}"></td>
+        <td>
+            <form th:id="@{'_search_'+${item.id}}" method="get" th:action="@{'/search/'+${item.id}}">
+                <a href="javascript:void()"
+                   th:onclick="@{'document.getElementById(\'_search_' + ${item.id} +'\').submit();'}"> 🔜 goto
+                    folder</a>
+            </form>
+        </td>
+        <td>
+            <form th:id="@{'_folder_delete_'+${item.id}}" method="post" th:action="@{'/folder/delete/'+${item.id}}">
+                <a href="javascript:void()"
+                   th:onclick="@{'document.getElementById(\'_folder_delete_' + ${item.id} +'\').submit();'}">  ⚠️ delete
+                    folder</a>
+            </form>
+        </td>
+
+    </tr>
+
+    <tr th:each="item:${bookmarks.items}">
+        <td th:text="${item.id}"></td>
+        <td>
+            <img th:src="${item.icon}" width="32px" height="32px" alt=""/>
+        </td>
+        <td th:text="${item.code}"></td>
+        <td th:text="${item.name}"></td>
+        <td th:text="${item.url}"></td>
+        <td><a th:href="${item.url}" target="_blank">🔜 go</a></td>
+        <td>
+            <form th:id="@{'_bookmark_delete_'+${item.id}}" method="post" th:action="@{'/bookmark/delete/'+${item.id}}">
+            <a href="javascript:void()"
+               th:onclick="@{'document.getElementById(\'_bookmark_delete_' + ${item.id} +'\').submit();'}">  ⚠️ delete
+                bookmark</a>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+
+</table>
+
+
+</body>
+</html>
