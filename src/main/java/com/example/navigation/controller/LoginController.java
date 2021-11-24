@@ -43,7 +43,7 @@ public class LoginController {
     public String login(Model model)//对应函数
     {
         if (StpUtil.isLogin()) {
-            return "index";
+            return bookmarkAndFolderService.getDefault(model,null);
         }
         return "login";
     }
