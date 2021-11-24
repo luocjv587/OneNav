@@ -14,5 +14,7 @@ import com.example.navigation.model.vo.UserVO;
 public interface AuthService {
     UserVO login(String username, String password);
 
+    UserVO register(String username, String password,String name);
+
     UserVO getDetail(Long id);
 }

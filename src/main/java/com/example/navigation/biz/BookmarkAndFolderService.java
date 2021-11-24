@@ -2,6 +2,8 @@ package com.example.navigation.biz;
 
 import org.springframework.ui.Model;
 
+import java.io.IOException;
+
 /**
  * Description:
  * ProjectName: navigation
@@ -12,5 +14,7 @@ import org.springframework.ui.Model;
  * @author luocj
  */
 public interface BookmarkAndFolderService {
-    String getDefault(Model model);
+    String getDefault(Model model,Long parentId);
+
+    void googleImport(String s) throws IOException;
 }

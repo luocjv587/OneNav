@@ -31,7 +31,7 @@ public class FolderController {
     public String create(Model model, String name, Long parentId)//对应函数
     {
         folderService.create(name, parentId);
-        return bookmarkAndFolderService.getDefault(model);
+        return bookmarkAndFolderService.getDefault(model,parentId);
 
     }
 
@@ -39,6 +39,6 @@ public class FolderController {
     public String create(Model model, @PathVariable Long id)//对应函数
     {
         folderService.delete(id);
-        return bookmarkAndFolderService.getDefault(model);
+        return bookmarkAndFolderService.getDefault(model,null);
     }
 }

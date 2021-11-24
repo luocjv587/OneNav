@@ -38,7 +38,8 @@ public class LoginController {
     private final BookmarkService bookmarkService;
     private final BookmarkAndFolderService bookmarkAndFolderService;
 
-    @GetMapping("/")//页面的url地址
+
+    @GetMapping("/")
     public String login(Model model)//对应函数
     {
         if (StpUtil.isLogin()) {
@@ -47,11 +48,23 @@ public class LoginController {
         return "login";
     }
 
+    @PostMapping("/register")
+    public String register(LoginQuery loginQuery, Model model)//对应函数
+    {
+        try {
+            authService.register(loginQuery.getUsername(), loginQuery.getPassword(),loginQuery.getName());
+            return bookmarkAndFolderService.getDefault(model,null);
+        } catch (Exception e) {
+            model.addAttribute("errorMsg", e.getMessage());
+            return "login";
+        }
+    }
+
     @PostMapping("/login")
     public String login(LoginQuery loginQuery, Model model) {
         try {
             UserVO login = authService.login(loginQuery.getUsername(), loginQuery.getPassword());
-            return bookmarkAndFolderService.getDefault(model);
+            return bookmarkAndFolderService.getDefault(model,null);
         } catch (Exception e) {
             model.addAttribute("errorMsg", e.getMessage());
             return "login";
@@ -71,6 +84,7 @@ public class LoginController {
         PageInfoVO<FolderVO> folderServicePageList = folderService.getPageList(folderQuery);
         PageInfoVO<BookmarkVO> bookmarkServicePageList = bookmarkService.getPageList(bookmarkQuery);
         model.addAttribute("current", detail.getName());
+        model.addAttribute("currentFolderId", detail.getId());
         model.addAttribute("user", authService.getDetail(StpUtil.getLoginIdAsLong()));
         model.addAttribute("folders", folderServicePageList);
         model.addAttribute("bookmarks", bookmarkServicePageList);

@@ -7,6 +7,7 @@ import com.example.navigation.model.domain.UserDO;
 import com.example.navigation.model.exception.BusinessException;
 import com.example.navigation.model.vo.UserVO;
 import com.example.navigation.mybatisService.MybatisUserService;
+import com.example.navigation.util.GeneratorUtil;
 import com.example.navigation.util.TypeConverterUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,27 @@ public class AuthServiceImpl implements AuthService {
 
         StpUtil.login(userDO.getId());
         UserVO userVO = TypeConverterUtil.convert(userDO, UserVO.class);
+        userVO.setJwtToken(StpUtil.getTokenValue());
+        return userVO;
+    }
+
+    @Override
+    public UserVO register(String username, String password, String name) {
+        UserDO userDO = mybatisUserService.getOne(new QueryWrapper<UserDO>().eq("username", username));
+        if (!Objects.isNull(userDO)) {
+            throw new BusinessException("账号已存在");
+        }
+        UserDO createUserDO = UserDO.builder()
+                .code(GeneratorUtil.getRandomString(6))
+                .username(username)
+                .password(password)
+                .name(name)
+                .createdBy(0L)
+                .updatedBy(0L)
+                .build();
+        mybatisUserService.save(createUserDO);
+        StpUtil.login(createUserDO.getId());
+        UserVO userVO = TypeConverterUtil.convert(createUserDO, UserVO.class);
         userVO.setJwtToken(StpUtil.getTokenValue());
         return userVO;
     }

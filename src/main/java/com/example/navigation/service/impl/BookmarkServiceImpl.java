@@ -38,7 +38,10 @@ public class BookmarkServiceImpl implements BookmarkService {
         QueryWrapper<BookmarkDO> queryWrapper = new QueryWrapper<>();
         if (ObjectUtil.isNotEmpty(query.getParentId())) {
             queryWrapper.eq("folder_id", query.getParentId());
+        } else {
+            queryWrapper.eq("folder_id", 0);
         }
+        queryWrapper.eq("created_by", StpUtil.getLoginIdAsLong());
         IPage<BookmarkDO> page = bookmarkMapper.selectPage(query.buildPage(), queryWrapper);
         List<BookmarkVO> bookmarkVOList = TypeConverterUtil.convert(page.getRecords(), BookmarkVO.class);
         for (BookmarkVO bookmarkVO : bookmarkVOList) {

@@ -1,5 +1,6 @@
 package com.example.navigation.service;
 
+import com.example.navigation.model.domain.FolderDO;
 import com.example.navigation.model.query.FolderQuery;
 import com.example.navigation.model.vo.FolderVO;
 import com.example.navigation.model.vo.PageInfoVO;
@@ -19,7 +20,7 @@ public interface FolderService {
 
     FolderVO getDetail(Long id);
 
-    void create(String name, Long parentId);
+    FolderDO create(String name, Long parentId);
 
     void delete(Long id);
 }

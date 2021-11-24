@@ -22,4 +22,7 @@ public class LoginQuery {
 
     @ApiModelProperty(name = "password", value = "0", required = true)
     private String password;
+
+    @ApiModelProperty(name = "name", value = "", required = true)
+    private String name;
 }

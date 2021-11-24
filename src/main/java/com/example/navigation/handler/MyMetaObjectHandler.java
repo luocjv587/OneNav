@@ -7,6 +7,7 @@ import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * @author lm.sun
@@ -24,8 +25,8 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
      */
     @Override
     public void insertFill(MetaObject metaObject) {
-        this.setFieldValByName(CommonConstant.CREATED_AT_HUMP, LocalDateTime.now(), metaObject);
-        this.setFieldValByName(CommonConstant.UPDATED_AT_HUMP, LocalDateTime.now(), metaObject);
+        this.setFieldValByName(CommonConstant.CREATED_AT_HUMP, new Date(), metaObject);
+        this.setFieldValByName(CommonConstant.UPDATED_AT_HUMP, new Date(), metaObject);
     }
 
     /**
@@ -35,6 +36,6 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
      */
     @Override
     public void updateFill(MetaObject metaObject) {
-        this.setFieldValByName(CommonConstant.UPDATED_AT_HUMP, LocalDateTime.now(), metaObject);
+        this.setFieldValByName(CommonConstant.UPDATED_AT_HUMP, new Date(), metaObject);
     }
 }

@@ -5,13 +5,41 @@
     <title>Navigation</title>
 </head>
 <body>
-<form action="/login" method="post">
-    <label>用户名</label><input name="username" value="" type="text">
-    <br/>
-    <label>密码</label><input name="password" value="" type="password">
-    <br/>
-    <button type="submit">登录</button>
-    <div th:text="${errorMsg}"></div>
-</form>
+<div class="center">
+    <h1 style="text-align: center">Login</h1>
+    <form action="/login" method="post">
+        <label>username</label><input name="username" value="" type="text">
+        <br/>
+        <label>password</label><input name="password" value="" type="password">
+        <br/>
+        <button type="submit">login</button>
+        <div th:text="${errorMsg}"></div>
+    </form>
+</div>
+
+<div class="center">
+    <h1 style="text-align: center">Register</h1>
+    <form action="/register" method="post">
+        <label>name</label><input name="name" value="" type="text">
+        <br/>
+        <label>username</label><input name="username" value="" type="text">
+        <br/>
+        <label>password</label><input name="password" value="" type="password">
+        <br/>
+        <button type="submit">register</button>
+        <div th:text="${errorMsg}"></div>
+    </form>
+</div>
+
+
 </body>
+<style>
+    .center {
+        margin: auto;
+        margin-top: 5px;
+        width: 50%;
+        border: 3px solid black;
+        padding: 10px;
+    }
+</style>
 </html>

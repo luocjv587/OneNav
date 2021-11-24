@@ -2,7 +2,6 @@ package com.example.navigation.model.vo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.example.navigation.model.domain.CommonDO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,7 +22,7 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserVO extends CommonDO implements Serializable {
+public class UserVO implements Serializable {
     @TableId(type = IdType.AUTO)
     private Long id;
 

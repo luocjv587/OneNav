@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * Description:
@@ -48,10 +49,10 @@ public class BookmarkDO implements Serializable {
     private Long folderId;
 
     @TableField(fill = FieldFill.INSERT)
-    public LocalDateTime createdAt;
+    public Date createdAt;
 
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    public LocalDateTime updatedAt;
+    public Date updatedAt;
 
     public Long createdBy;
 

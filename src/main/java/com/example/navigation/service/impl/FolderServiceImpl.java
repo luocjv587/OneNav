@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.example.navigation.mapper.BookmarkMapper;
 import com.example.navigation.mapper.FolderMapper;
-import com.example.navigation.model.domain.BookmarkDO;
 import com.example.navigation.model.domain.FolderDO;
 import com.example.navigation.model.query.FolderQuery;
 import com.example.navigation.model.vo.FolderVO;
@@ -40,7 +39,10 @@ public class FolderServiceImpl implements FolderService {
         QueryWrapper<FolderDO> queryWrapper = new QueryWrapper<>();
         if (ObjectUtil.isNotEmpty(query.getParentId())) {
             queryWrapper.eq("parent_id", query.getParentId());
+        } else {
+            queryWrapper.eq("parent_id", 0);
         }
+        queryWrapper.eq("created_by", StpUtil.getLoginIdAsLong());
         IPage<FolderDO> page = folderMapper.selectPage(query.buildPage(), queryWrapper);
         List<FolderVO> folderVOList = TypeConverterUtil.convert(page.getRecords(), FolderVO.class);
         return PageInfoVO.<FolderVO>builder()
@@ -55,7 +57,7 @@ public class FolderServiceImpl implements FolderService {
     }
 
     @Override
-    public void create(String name, Long parentId) {
+    public FolderDO create(String name, Long parentId) {
         FolderDO build = FolderDO.builder()
                 .name(name)
                 .parentId(parentId)
@@ -64,6 +66,7 @@ public class FolderServiceImpl implements FolderService {
                 .updatedBy(StpUtil.getLoginIdAsLong())
                 .build();
         folderMapper.insert(build);
+        return build;
     }
 
     @Override

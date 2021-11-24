@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * Description:
@@ -23,7 +24,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName("user")
-public class UserDO extends CommonDO implements Serializable {
+public class UserDO implements Serializable {
     @TableId(type = IdType.AUTO)
     private Long id;
 
@@ -53,10 +54,10 @@ public class UserDO extends CommonDO implements Serializable {
     private Boolean isEnable;
 
     @TableField(fill = FieldFill.INSERT)
-    public LocalDateTime createdAt;
+    public Date createdAt;
 
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    public LocalDateTime updatedAt;
+    public Date updatedAt;
 
     public Long createdBy;
 

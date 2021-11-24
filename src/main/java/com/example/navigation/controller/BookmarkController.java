@@ -31,13 +31,13 @@ public class BookmarkController {
     public String create(Model model, String name, Long folderId,String url)//对应函数
     {
         bookmarkService.create(name, folderId, url);
-        return bookmarkAndFolderService.getDefault(model);
+        return bookmarkAndFolderService.getDefault(model,folderId);
     }
 
     @PostMapping("/bookmark/delete/{id}")//页面的url地址
     public String create(Model model, @PathVariable Long id)//对应函数
     {
         bookmarkService.delete(id);
-        return bookmarkAndFolderService.getDefault(model);
+        return bookmarkAndFolderService.getDefault(model,null);
     }
 }
