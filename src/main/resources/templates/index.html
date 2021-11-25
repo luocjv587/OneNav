@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Nav Index</title>
-</head>
+<head th:replace="base::commonHeader(_,_,_)">
 <body>
 <h1 style="text-align: center" th:text="Hello">Hello: </h1>
 <h2 style="text-align: center" th:if="${user} ne null" th:text="${user.name}"></h2>
@@ -75,7 +72,7 @@
         <td>
             <form th:id="@{'_folder_delete_'+${item.id}}" method="post" th:action="@{'/folder/delete/'+${item.id}}">
                 <a href="javascript:void()"
-                   th:onclick="@{'document.getElementById(\'_folder_delete_' + ${item.id} +'\').submit();'}">  ⚠️ delete
+                   th:onclick="@{'document.getElementById(\'_folder_delete_' + ${item.id} +'\').submit();'}"> ⚠️ delete
                     folder</a>
             </form>
         </td>
@@ -93,9 +90,10 @@
         <td><a th:href="${item.url}" target="_blank">🔜 go</a></td>
         <td>
             <form th:id="@{'_bookmark_delete_'+${item.id}}" method="post" th:action="@{'/bookmark/delete/'+${item.id}}">
-            <a href="javascript:void()"
-               th:onclick="@{'document.getElementById(\'_bookmark_delete_' + ${item.id} +'\').submit();'}">  ⚠️ delete
-                bookmark</a>
+                <a href="javascript:void()"
+                   th:onclick="@{'document.getElementById(\'_bookmark_delete_' + ${item.id} +'\').submit();'}"> ⚠️
+                    delete
+                    bookmark</a>
             </form>
         </td>
     </tr>
@@ -107,9 +105,10 @@
 </body>
 <style>
     table {
-        table-layout:fixed;
-        WORD-BREAK:break-all;
+        table-layout: fixed;
+        WORD-BREAK: break-all;
     }
+
     div {
         padding: 5px;
     }
