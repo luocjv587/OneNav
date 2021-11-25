@@ -18,8 +18,8 @@ Java 11+, Spring Boot, Sqlite, Thymeleaf
 
 ## Installation - 安装
 
-拉取源码后，mvn package， java -jar xxxx.jar
-
+1. 拉取源码后，mvn package， java -jar xxxx.jar
+2. 直接在 github release 下载jar文件，再执行。
 ## Usage - 用法
 
 服务成功启动后，访问浏览器 ip:8991 端口
