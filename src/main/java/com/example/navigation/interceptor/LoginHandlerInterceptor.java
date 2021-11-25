@@ -1,6 +1,7 @@
 package com.example.navigation.interceptor;
 
 import cn.dev33.satoken.stp.StpUtil;
+import com.example.navigation.model.exception.BusinessException;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,8 +25,9 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
 
         if (!StpUtil.isLogin()) {
             request.setAttribute("errorMsg", "无权限请先登录");
-            request.getRequestDispatcher("/").forward(request, response);
-            return false;
+            throw new RuntimeException("无权限请先登录");
+//            request.getRequestDispatcher("/").forward(request, response);
+//            return false;
         } else {
             // 已登录，放行
             return true;

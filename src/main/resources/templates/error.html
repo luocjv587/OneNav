@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="base::commonHeader(_,_,_)">
+<body>
+<h1><a href="/">返回首页  🔙</a></h1>
+
+<h1 style="color: red">发生错误：</h1>
+<div th:text="${url}"></div>
+<div th:text="${exception.message}"></div>
+</body>
+</html>
