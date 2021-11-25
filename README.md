@@ -6,7 +6,7 @@
 
 ## Demo - Demo站
 
-http://123.207.28.44:8991
+https://onenav.ianimechina.com
 
 username: luocj
 
