@@ -69,4 +69,9 @@ public class BookmarkAndFolderServiceImpl implements BookmarkAndFolderService {
         }
 
     }
+
+    @Override
+    public void addBookmark(String url, String title) {
+        bookmarkService.create(title, 0L, url);
+    }
 }

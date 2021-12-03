@@ -17,4 +17,6 @@ public interface BookmarkAndFolderService {
     String getDefault(Model model,Long parentId);
 
     void googleImport(String s) throws IOException;
+
+    void addBookmark(String url,String title);
 }

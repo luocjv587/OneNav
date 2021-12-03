@@ -33,7 +33,7 @@ public class WebConfigure extends WebMvcConfigurerAdapter implements Application
     public void addInterceptors(InterceptorRegistry registry) {
         // 添加拦截的请求，并排除几个不拦截的请求
         registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
-                .excludePathPatterns("/login", "/", "/register","/static/**");
+                .excludePathPatterns("/login", "/", "/register","/static/**","/api/**");
     }
 
     @Override
