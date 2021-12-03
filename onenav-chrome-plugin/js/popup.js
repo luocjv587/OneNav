@@ -200,14 +200,25 @@ $('#show_notification').click(e => {
     let url = tabs[0].url;
     let title = tabs[0].title;
     // use `url` here inside the callback because it's asynchronous!
-    $.get('http://127.0.0.1:8991/api/addBookmark?url=' + encodeURI(url) + '&title=' + title, function (html) {
-      chrome.notifications.create(null, {
-        type: 'image',
-        iconUrl: 'img/icon.png',
-        title: 'OneNav',
-        message: '加入书签成功啦！',
-        imageUrl: 'img/grape.png'
-      });
+    $.get('http://127.0.0.1:8991/api/addBookmark?url=' + encodeURI(url) +'&key=onenavkey&secret=onenavsecret1&title=' + title, function (html) {
+      if (html == 1){
+        chrome.notifications.create(null, {
+          type: 'image',
+          iconUrl: 'img/icon.png',
+          title: 'OneNav',
+          message: '加入书签成功啦！',
+          imageUrl: 'img/grape.png'
+        });
+      }else{
+        chrome.notifications.create(null, {
+          type: 'image',
+          iconUrl: 'img/icon.png',
+          title: 'OneNav',
+          message: '加入书签失败啦！请检查key secret',
+          imageUrl: 'img/grape.png'
+        });
+      }
+
 
     });
   });
