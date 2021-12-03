@@ -1,14 +1,22 @@
 package com.example.navigation.service.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
-import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.example.navigation.mapper.AppAuthMapper;
 import com.example.navigation.model.domain.AppAuthDO;
+import com.example.navigation.model.query.AppAuthQuery;
+import com.example.navigation.model.vo.AppAuthVO;
+import com.example.navigation.model.vo.PageInfoVO;
 import com.example.navigation.mybatisService.MybatisAppAuthService;
 import com.example.navigation.service.AppAuthService;
 import com.example.navigation.util.GeneratorUtil;
+import com.example.navigation.util.TypeConverterUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Description:
@@ -23,6 +31,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AppAuthServiceImpl implements AppAuthService {
     private final MybatisAppAuthService mybatisAppAuthService;
+    private final AppAuthMapper appAuthMapper;
 
     @Override
     public void create() {
@@ -39,5 +48,17 @@ public class AppAuthServiceImpl implements AppAuthService {
     public AppAuthDO exists(String appKey, String appSecret) {
         LambdaQueryWrapper<AppAuthDO> eq = new LambdaQueryWrapper<AppAuthDO>().eq(AppAuthDO::getAppKey, appKey).eq(AppAuthDO::getAppSecret, appSecret);
         return mybatisAppAuthService.getOne(eq);
+    }
+
+    @Override
+    public PageInfoVO<AppAuthVO> getPageList(AppAuthQuery query) {
+        QueryWrapper<AppAuthDO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("created_by", StpUtil.getLoginIdAsLong());
+        IPage<AppAuthDO> page = appAuthMapper.selectPage(query.buildPage(), queryWrapper);
+        List<AppAuthVO> list = TypeConverterUtil.convert(page.getRecords(), AppAuthVO.class);
+        return PageInfoVO.<AppAuthVO>builder()
+                .items(list)
+                .total(page.getTotal())
+                .build();
     }
 }

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="base::commonHeader(_,_,_)">
+<body>
+<h3><a href="/search/0">Back2Index 🔙</a></h3>
+<form method="post" action="/appAuth/create">
+    <div>
+        <button type="submit">Generate Key</button>
+    </div>
+</form>
+<table style="width: 100%;margin: 5px;" border="1px solid #ccc" cellspacing="0" cellpadding="0">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Key</th>
+        <th>Secret</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item:${auths.items}">
+        <td th:text="${item.id}"></td>
+        <td th:text="${item.appKey}"></td>
+        <td th:text="${item.appSecret}"></td>
+    </tr>
+    </tbody>
+
+</table>
+
+</body>
+</html>
